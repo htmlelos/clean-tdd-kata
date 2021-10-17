@@ -90,7 +90,7 @@ describe('Modulo de autenticación', () => {
         expect(response.body.message).toBe('email isn\'t a valid e-mail address')
     })
 
-    it('throw error if exists a user with the provided email', async () => {
+    it.skip('throw error if exists a user with the provided email', async () => {
         const response = await request.post('/api/signup').send({
             name: 'username',
             email: 'usermail.com',
