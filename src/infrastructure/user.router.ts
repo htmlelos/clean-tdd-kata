@@ -1,9 +1,19 @@
-import { Router, Request, Response } from 'express'
-import UserValidator from './user.validator'
-import UserController from './user.controller'
+import { Router, Request, Response } from "express";
+import {userValidator} from './user.validator'
+import { userController } from "./user.controller";
 
-const router = Router()
+const router = Router();
 
-router.post('/signup', UserValidator, UserController )
+console.log('HERE!');
+
+
+router.post(
+  "/signup",
+  // [
+  //   userValidator
+  // ],
+  userController
+);
 
 export default router;
+3
