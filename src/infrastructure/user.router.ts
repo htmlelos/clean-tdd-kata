@@ -1,19 +1,17 @@
-import { Router, Request, Response } from "express";
-import {userValidator} from './user.validator'
+import { Router } from "express";
+import { userExistsValidator, userSignupValidator } from "./user.validator";
 import { userController } from "./user.controller";
+import { validateRequestSchema } from "../middlewares/validate-request-schema";
 
 const router = Router();
 
-console.log('HERE!');
-
-
 router.post(
   "/signup",
-  // [
-  //   userValidator
-  // ],
+  userSignupValidator,
+  userExistsValidator,
+  validateRequestSchema,
   userController
 );
 
 export default router;
-3
+3;

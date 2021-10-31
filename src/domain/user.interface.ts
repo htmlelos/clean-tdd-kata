@@ -1,10 +1,9 @@
-export default interface User {
-    name: string;
+export interface User {
+    username: string;
     email: string;
     password: string;
-    passwordConfirmation: string;
 }
 
-export type UserFilter = Pick<User, 'name'|'email'>
+export type UserFilter = Pick<User, 'username'|'email'>
 
-export type UserList = Pick<User, 'name'|'email'>
+export type UserList = Pick<User, 'username'|'email'>

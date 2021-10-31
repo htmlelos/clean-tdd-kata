@@ -13,7 +13,7 @@ beforeAll(done => {
 describe('POST in api/signup', () => {
     it('user signup', async () => {
         const response = await request.post('/api/signup').send({
-            name: 'username',
+            username: 'username',
             email: 'username@mail.com',
             password: 'pass2021$',
             passwordConfirmation: 'pass2021$'
@@ -29,74 +29,105 @@ describe('POST in api/signup', () => {
             passwordConfirmation: 'pass2021$'
         })
 
-        expect(response.status).toBe(400)        
-        expect(response.body.message).toBe('name parameter must be defined')
+        expect(response.status).toBe(400)                
+        expect(response.body.errors).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({msg: 'name parameter must be defined'})
+            ])
+        )
     })
 
     it('email parameter is missing', async () => {
         const response = await request.post('/api/signup').send({
-            name: 'username',
+            username: 'username',
             password: 'pass2021$',
             passwordConfirmation: 'pass2021$'
         })
 
         expect(response.status).toBe(400)
-        expect(response.body.message).toBe('email parameter must be defined')
+        expect(response.body.errors).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({msg: 'email parameter must be defined'})
+            ])
+        )
     })
 
-    it.skip('password parameter is missing', async () => {
+    it('password parameter is missing', async () => {
         const response = await request.post('/api/signup').send({
-            name: 'username',
+            username: 'username',
             email: 'user@mail.com',
             passwordConfirmation: 'pass2021%'
         })
 
         expect(response.status).toBe(400)
-        expect(response.body.message).toBe('password parameter must be defined')
+        expect(response.body.errors).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({msg: 'password parameter must be defined'})
+            ])
+        )
     })
     
-    it.skip('password confirmation parameter is missing', async () => {
+    it('password confirmation parameter is missing', async () => {
         const response = await request.post('/api/signup').send({
-            name: 'username',
+            username: 'username',
             email: 'user@mail.com',
             password: 'pass2021%'
         })
 
         expect(response.status).toBe(400)
-        expect(response.body.message).toBe('password confirmation parameter must be defined')
+        expect(response.body.errors).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({msg: 'password confirmation parameter must be defined'})
+            ])
+        )
     })
 
-    it.skip('throw error if the password and the passwordConfirmation aren\'t the same', async () => {
+    it('throw error if the password and the passwordConfirmation aren\'t the same', async () => {
         const response = await request.post('/api/signup').send({
-            name: 'username',
+            username: 'username',
             email: 'user@mail.com',
             password: 'pass2021$',
             passwordConfirmation: 'pass2021%'
         })
 
         expect(response.status).toBe(400)
-        expect(response.body.message).toBe('password and passwordConfirmation does not match')
+        expect(response.body.errors).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({msg: 'password and passwordConfirmation does not match'})
+            ])
+        )
     })
 
-    it.skip('throw error if the email isn\'t a valid email address', async () => {
+    it('throw error if the email isn\'t a valid email address', async () => {
         const response = await request.post('/api/signup').send({
-            name: 'username',
+            username: 'username',
             email: 'usermail.com',
             password: 'pass2021$',
             passwordConfirmation: 'pass2021$'
         })
 
         expect(response.status).toBe(400)
-        expect(response.body.message).toBe('email isn\'t a valid e-mail address')
+        expect(response.body.errors).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({msg: 'email isn\'t a valid e-mail address'})
+            ])
+        )
     })
 
-    it.skip('throw error if exists a user with the provided email', async () => {
+    it('throw error if exists a user with the provided email', async () => {
         const response = await request.post('/api/signup').send({
-            name: 'username',
-            email: 'usermail.com',
+            username: 'username',
+            email: 'username@mail.com',
             password: 'pass2021$',
             passwordConfirmation: 'pass2021$'
         })
+
+        // expect(response.status).toBe(403)
+        expect(response.body.errors).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({msg:'already exist a user with the email provided'})
+            ])
+        )
     })
 })
 
