@@ -9,7 +9,7 @@
     "serve": "cross-env NODE_ENV=development concurrently \"tsc --watch\" \"nodemon -q dist/server.js\"",
     "prestart": "npm run build",
     "start": "cross-env NODE_ENV=production node dist/server.js",
-    "test": "jest --watchAll"
+    "test": "jest --detectOpenHandles --watchAll"
   },
   "author": "Lucero Sergio Alejandro",
   "license": "MIT",

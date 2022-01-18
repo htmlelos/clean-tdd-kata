@@ -1,19 +1,10 @@
 import { Router, Request, Response } from "express";
-import {userValidator} from './user.validator'
-import { userController } from "./user.controller";
+import { userValidator } from "./user.validator";
+import { signupController } from "./signup.controller";
 
 const router = Router();
 
-console.log('HERE!');
-
-
-router.post(
-  "/signup",
-  // [
-  //   userValidator
-  // ],
-  userController
-);
+router.post("/signup", [userValidator], signupController);
 
 export default router;
-3
+3;
