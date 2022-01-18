@@ -58,7 +58,7 @@ describe("POST in api/signup", () => {
     expect(response.body.message).toBe("password parameter must be defined");
   });
 
-  it.skip("password confirmation parameter is missing", async () => {
+  it("password confirmation parameter is missing", async () => {
     const response = await request.post("/api/signup").send({
       name: "username",
       email: "user@mail.com",
@@ -71,7 +71,7 @@ describe("POST in api/signup", () => {
     );
   });
 
-  it.skip("throw error if the password and the passwordConfirmation aren't the same", async () => {
+  it("throw error if the password and the passwordConfirmation aren't the same", async () => {
     const response = await request.post("/api/signup").send({
       name: "username",
       email: "user@mail.com",
@@ -81,11 +81,11 @@ describe("POST in api/signup", () => {
 
     expect(response.status).toBe(400);
     expect(response.body.message).toBe(
-      "password and passwordConfirmation does not match"
+      "password and password confirmation must match"
     );
   });
 
-  it.skip("throw error if the email isn't a valid email address", async () => {
+  it("throw error if the email isn't a valid email address", async () => {
     const response = await request.post("/api/signup").send({
       name: "username",
       email: "usermail.com",
